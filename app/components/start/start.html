@@ -1,0 +1,91 @@
+<div class="container">
+    <section class="module">
+        <div class="module-header">
+            <div class="row">
+                <h1>Szótár</h1>
+            </div>
+            <div class="row">
+                <button class="btn btn-info" ng-click="vm.load()">Betöltés</button>
+                <button class="btn btn-warning" ng-click="vm.show='true'">Új szó</button>
+            </div>
+        </div>
+        <div class="module-body">
+            <div ng-show="vm.show=='true'" style="margin-top:10px">
+                <h2>Új szó felvétele</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <span>Kategória</span>
+                        <select ng-model="vm.category">
+                            <option ng-repeat="ct in vm.categories" value="{{ct}}">{{ct}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <span>Angol</span>
+                        <input type="text" ng-model="vm.english">
+                    </div>
+                    <div class="col-sm-3">
+                        <span>Magyar</span>
+                        <input type="text" ng-model="vm.hungarian">
+                    </div>
+                    <div class="col-sm-3">
+                        <span>Német</span>
+                        <input type="text" ng-model="vm.german">
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-default" ng-click="vm.show='false';vm.createword={}">Mégse</button>
+                    <button class="btn btn-success" ng-click="vm.save()">Mentés</button>
+                </div>
+            </div>
+            <div style="margin-top:10px">
+                <h2>Keresés a szótárban</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <span>Kategória</span>
+                        <select ng-model="search.category">
+                            <option value="">Összes</option>
+                            <option ng-repeat="ct in vm.categories" value="{{ct}}">{{ct}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <span>Magyar</span>
+                        <input type="text" ng-model="search.hungarian">
+                    </div>
+                    <div class="col-sm-3">
+                        <span>Angol</span>
+                        <input type="text" ng-model="search.english">
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span>Német</span>
+                        <input type="text" ng-model="search.german">
+                    </div>
+
+                </div>
+                <table class="table table-bordered" style="margin-top:10px">
+                    <thead>
+                        <tr>
+                            <th>Kategória</th>
+                            <th>Magyar</th>
+                            <th>Angol</th>
+                            <th>Német</th>
+                            <th>Törlés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.words| filter: search track by $index">
+                            <td>{{item.category}}</td>
+                            <td>{{item.hungarian}}</td>
+                            <td>{{item.english}}</td>
+                            <td>{{item.german}}</td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="vm.erase(item.id,$index)">Törlés</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="module-footer"></div>
+    </section>
+</div>
